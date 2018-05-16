@@ -1,0 +1,63 @@
+﻿<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-12">
+            <section style="margin:auto; width: 100%; text-align:center">
+                <h4 style="text-align: center">
+                    Convert Currency into Words
+                </h4>               
+                @using (Html.BeginForm("register", "account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="rowVal">
+                        @Html.TextBox("Name", "", new { id = "txtName", @class = "form-control", placeholder = "Enter Full Name", Style = "margin:0 auto;" })
+                    </div>
+                    <div class="rowVal">
+                        @Html.TextBox("Currency", "", new { id = "txtCurrency", @class = "form-control", placeholder = "Currency: 123.12", Style = "margin:0 auto;" })
+                    </div>
+                    <div class="rowVal">
+                        <input type="button" class="btn btn-default" value="Submit" id="btnSubmit" style="background-color: #008ede; color:white; height: 41px; width: 100%" />
+                    </div>
+                }
+                <div>
+                    <div style="color:green;">
+                        <label id="lblName" />
+                    </div>
+                    <div style="color:green;">
+                        <label id="lblCurrency" />
+                    </div>
+                </div>
+                <div style="color:red;">
+                    <label id="lblError" />
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $("#btnSubmit").click(function () {
+            $("#lblError").text("");
+            $("#lblName").text("");
+            $("#lblCurrency").text("");
+            $.ajax({
+                type: "Get",
+                url: "/api/conversion/get",
+                data: {
+                    name: $("#txtName").val(),
+                    currency: $("#txtCurrency").val()
+                },
+                success: function (response) {
+                    var obj = JSON.parse(response);
+                    if (obj.ErrorMessage == null) {
+                        $("#lblName").text(obj.Name);
+                        $("#lblCurrency").text(obj.Currency);                        
+                    } else {
+                        $("#lblError").text(obj.ErrorMessage);                                    
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#lblError").text(errorThrown);
+                }
+            });
+        });
+    </script>
+}
