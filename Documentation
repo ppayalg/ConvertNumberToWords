@@ -1,0 +1,21 @@
+This solution is build under Visual Studio 2017, .Net Framework Version 4.6.1 and in C# language.
+
+PreConditions
+
+1. Enter Full Name (only First Name is not allowed)
+2. Enter Currency in decimals only
+
+Input/Output
+The web page form is posted throgh Ajax and the output of the conversion is in the Json string format.
+
+Expected Output
+1. If after decimal, it has more than two points, output will be in ones otherwise it will be in tens.
+Example
+0 - ZERO DOLLAR
+1- ONE DOLLARS 
+12.123- TWELVE DOLLARS AND ONE TWO THREE CENTS
+12.12 - TWELVE DOLLARS AND TWELVE CENTS
+
+
+Test Cases
+The solution has covered 30 test cases.
